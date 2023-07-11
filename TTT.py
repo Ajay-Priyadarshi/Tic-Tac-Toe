@@ -9,29 +9,29 @@ def Board(board):
         if((i > 0) and (i % 3) == 0):    #move to next line after 3 spots
             print("\b\b\b\n")
         if(board[i] == 0):
-            print("|_|", end = "")
+            print("| _ ", end = "")
         if(board[i] == -1):
-          print("|X|", end = "")  
+          print("| X ", end = "")  
         if(board[i] == 1):
-          print("|O|", end = "")  
+          print("| O ", end = "")  
     print("\n\n")
 
 #User 1
-def User1Turn(board):
-    pos = int(input("Enter X's Position from [1,2,3,4,5,6,7,8,9] : "))
+def User1Turn(board, u1):
+    pos = int(input( u1 + " enter position from [1,2,3,4,5,6,7,8,9] : "))
     #Check if the pos select by user is empty
     if(board[pos-1] != 0):
-       print("Wrong Move")
-       exit(0)
+       print("Wrong Move choose again...\n")
+       User1Turn(board, u1)
     board[pos-1] = -1
 
 #User 2
-def User2Turn(board):
-    pos = int(input("Enter O's Position from [1,2,3,4,5,6,7,8,9] : "))
+def User2Turn(board, u2):
+    pos = int(input(u2 + " enter position from [1,2,3,4,5,6,7,8,9] : "))
     #Check if the pos select by user is empty
     if(board[pos-1] != 0):
-       print("Wrong Move")
-       exit(0)
+       print("\nWrong Move choose again...\n")
+       User2Turn(board, u2)
     board[pos-1] = 1
 
 #Computer
@@ -87,6 +87,7 @@ def main():
     #if the choice is 1 ie player vs computer
     if(choice == 1):
       print("Computer : O vs You : X.... ")
+      u1 = input("Enter your name : ")
       player = int(input("Enter to player 1st or 2nd : "))
       for i in range(0, 9):
          # Check if someone has won
@@ -98,11 +99,14 @@ def main():
         # Player's turn
         else:
             Board(board)      #Displays board
-            User1Turn(board) 
+            User1Turn(board, u1) 
 
    # Player vs Player 
     else:
-      player = int(input("Player 1 Enter to player 1st or 2nd : "))
+      u1 = input("Player 1 your name : ")
+      u2 = input("Player 2 your name : ")
+      player = int(input("Player 2 Enter to play 1st or 2nd : "))
+      print("")
       for i in range(0, 9):
          # Check if someone has won
         if(analyzeboard(board) != 0):
@@ -110,22 +114,30 @@ def main():
         #Player 1 turn
         if((i + player) % 2 == 0):
            Board(board)       #Displays board
-           User1Turn(board)
+           User1Turn(board, u1)
         # Player 2 turn
         else:
             Board(board)
-            User2Turn(board)
+            User2Turn(board, u2)
 
     #Storing the value of board after both players have played
     b = analyzeboard(board)
     if(b == 0):
        Board(board)
-       print("Draw")
-    if(b == -1):
-       Board(board)
-       print("Player X Wins")
-    if(b == 1):
-       Board(board)
-       print("Player O Wins")
+       print("!!! Its a Draw")
+    if(choice == 1):
+        if(b == -1):
+            Board(board)
+            print("!!! " + u1 + " Wins the game")
+        if(b == 1):
+            Board(board)
+            print("!!! " + "Computer Wins the game")
+    if(choice == 2):
+        if(b == -1):
+            Board(board)
+            print("!!! " + u1 + " Wins the game")
+        if(b == 1):
+            Board(board)
+            print("!!! " + u2 + " Wins the game")
 
 main()     
