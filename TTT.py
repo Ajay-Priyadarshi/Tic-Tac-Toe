@@ -3,7 +3,7 @@
 
 
 #ConstBoard function displays the board
-def ConstBoard(board):
+def Board(board):
     print("Current State of the Board : \n\n")
     for i in  range(0, 9):
         if((i > 0) and (i % 3) == 0):    #move to next line after 3 spots
@@ -97,7 +97,7 @@ def main():
            CompTurn(board)
         # Player's turn
         else:
-            ConstBoard(board)      #Displays board
+            Board(board)      #Displays board
             User1Turn(board) 
 
    # Player vs Player 
@@ -109,23 +109,23 @@ def main():
             break
         #Player 1 turn
         if((i + player) % 2 == 0):
-           ConstBoard(board)       #Displays board
+           Board(board)       #Displays board
            User1Turn(board)
         # Player 2 turn
         else:
-            ConstBoard(board)
+            Board(board)
             User2Turn(board)
 
     #Storing the value of board after both players have played
     b = analyzeboard(board)
     if(b == 0):
-       ConstBoard(board)
+       Board(board)
        print("Draw")
     if(b == -1):
-       ConstBoard(board)
+       Board(board)
        print("Player X Wins")
     if(b == 1):
-       ConstBoard(board)
+       Board(board)
        print("Player O Wins")
 
 main()     
